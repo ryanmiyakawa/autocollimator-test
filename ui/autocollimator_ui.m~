@@ -90,7 +90,7 @@ classdef autocollimator_ui < mic.Base
                     dPause = 1;
                     
             % create empty matrix 
-            img = zeros(dNStep, dNStep);
+            img = zeros(dNStep, dNStep)
                   
             switch src
                 
@@ -105,7 +105,7 @@ classdef autocollimator_ui < mic.Base
                                 img (r,c) = val1;
                                 xaxis.moveRelative(dStep) % positive is up
                             else
-                                img (dNStep + 1 - r,c) = val1;
+                                img (dNSteps + 1 - r,c) = val1;
                                 xaxis.moveRelative(-dStep) % negative is down
                             end
                             pause(dPause);
@@ -113,23 +113,24 @@ classdef autocollimator_ui < mic.Base
                         end
                         zaxis.moveRelative(dStep) % positive is right
                         pause(dPause);
-                        imagesc(this.hAxes,img)
                     end
                     
-                %case this.uibAbort % user clicked abort
+                case this.uibAbort % user clicked abort
                     % stages stop
-                    
                     
                     
                 case this.uibReset % user clicked Reset
                     % laser goes back to (1,1)
-                    c = dNStep;
-                    r = dNStep;
+                    c = dNSteps;
+                    r = dNSteps;
                     if mod(c,2) ~= 0 % c is odd therefore the laser will be at the bottom and needs to go back up
-                        xaxis.moveRelative(dNStep) % move back to r = 1
+                        xaxis.moveRelative(dNSteps) % move back to r = 1
                     end
-                    zaxis.moveRelative(-dNStep)
+                    zaxis.moveRelative(-dNSteps)
                     
+               
+                    % graphs the readings
+                    imagesc(this.hAxes, img);
                 
                 case this.uibUp
                     xaxis.moveRelative(dStepF)
